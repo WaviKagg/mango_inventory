@@ -13,29 +13,38 @@ function fetchInventory() {
 }
 
 function startScan(mode) {
+  const qrRegion = document.getElementById("scanner");
+  qrRegion.innerHTML = ""; // Clear previous scans
+  qrRegion.style.display = "block";
+
   const html5QrCode = new Html5Qrcode("scanner");
-  document.getElementById("scanner").style.display = "block";
 
-  Html5Qrcode.getCameras().then((devices) => {
-    if (devices && devices.length) {
-      const cameraId = devices[0].id;
-
-      html5QrCode.start(cameraId, {
+  html5QrCode
+    .start(
+      { facingMode: "environment" }, // Use back camera
+      {
         fps: 10,
-        qrbox: 250
+        qrbox: 250,
       },
-      qrCodeMessage => {
-        document.getElementById("scanner").style.display = "none";
-        html5QrCode.stop();
+      (qrCodeMessage) => {
+        html5QrCode.stop().then(() => {
+          qrRegion.style.display = "none";
 
-        if (mode === 'add') {
-          db.ref('inventory/' + qrCodeMessage).set(true);
-        } else if (mode === 'remove') {
-          db.ref('inventory/' + qrCodeMessage).remove();
-        }
-      });
-    }
-  }).catch(err => {
-    console.error(err);
-  });
+          if (mode === "add") {
+            db.ref("inventory/" + qrCodeMessage).set(true);
+          } else if (mode === "remove") {
+            db.ref("inventory/" + qrCodeMessage).remove();
+          }
+
+          alert(`${mode === "add" ? "Added" : "Removed"}: ${qrCodeMessage}`);
+        });
+      },
+      (errorMessage) => {
+        // console.log(`Scan error: ${errorMessage}`);
+      }
+    )
+    .catch((err) => {
+      console.error("Camera start error", err);
+      alert("Failed to access camera. Make sure to allow camera permissions.");
+    });
 }
