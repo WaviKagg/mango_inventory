@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mango Inventory</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <h1>Mango Inventory</h1>
+  <button onclick="startScan('add')">Add Item</button>
+  <button onclick="startScan('remove')">Remove Item</button>
+  <ul id="inventory"></ul>
+  <video id="scanner" width="300" style="display:none;"></video>
+
+  <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-database-compat.js"></script>
+  <script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
+  <script src="firebase-config.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
