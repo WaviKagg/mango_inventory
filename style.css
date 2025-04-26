@@ -2,12 +2,12 @@ body {
   font-family: "Arial", sans-serif;
   margin: 0;
   padding: 0;
-  background: linear-gradient(to bottom right, #f9f871, #ffd86b);
+  background: linear-gradient(to bottom right, #71f9eb, #6bb5ff);
   color: #333;
 }
 
 header {
-  background-color: #ffb347;
+  background-color: #479dff;
   padding: 20px;
   text-align: center;
   color: white;
@@ -25,7 +25,7 @@ header {
 }
 
 button {
-  background-color: #ffa726;
+  background-color: #26c2ff;
   border: none;
   color: white;
   padding: 12px 20px;
